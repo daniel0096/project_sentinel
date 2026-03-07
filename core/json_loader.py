@@ -1,4 +1,6 @@
 import json
+import os
+import shutil
 from utils import get_working_dir
 import subprocess
 from typing import Optional
@@ -8,13 +10,28 @@ class JsonLoader:
         self._json_files: list = []
         self._json_data: list = []
         self._config_dir: str = get_working_dir("config_files")
+        self._servers_file: str = os.path.join(self._config_dir, "servers.json")
+        self._servers_sample_file: str = os.path.join(self._config_dir, "servers.sample.json")
+
+    def _ensure_servers_file(self) -> None:
+        """
+        Create servers.json from servers.sample.json if missing.
+        """
+        if os.path.exists(self._servers_file):
+            return
+
+        if os.path.exists(self._servers_sample_file):
+            shutil.copyfile(self._servers_sample_file, self._servers_file)
 
     def find_json(self) -> list[str]:
+        self._ensure_servers_file()
         try:
             res = subprocess.run(["find", self._config_dir ,"-type", "f", "-name", "*.json"], capture_output=True, text=True, check=True)
             lines = res.stdout.strip().splitlines()
 
             for line in lines:
+                if line.endswith(".sample.json"):
+                    continue
                 if not line in self._json_files:
                     self._json_files.append(line)
                     
