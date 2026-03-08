@@ -259,7 +259,6 @@ Fields:
 | ssh_connection_type | authentication type |
 | ssh_key_path | path to SSH key |
 | os | server operating system |
-name unique server identifier
 
 ------------------------------------------------------------------------
 
