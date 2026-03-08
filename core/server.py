@@ -9,7 +9,7 @@ class Server:
         self._server_data.find_json()
         self._server_data.load_data()
 
-    def connect(self) -> bool:
+    def run_cmd(self, cmd: str) -> bool:
         data: list[dict[str, object]] = self._server_data.json_data
         success = False
 
@@ -23,7 +23,7 @@ class Server:
             server_connection_type = server.get("ssh_connection_type")
             server_user = server.get("user", "root")
         
-            ssh_command = ["ssh", "-p", str(server_port), f"{server_user}@{server_ip}"]
+            ssh_command = ["ssh", "-p", str(server_port), f"{server_user}@{server_ip}", f"{cmd}"]
 
             if server_connection_type == "ssh_key":
                 key_path = server.get("ssh_key_path")
