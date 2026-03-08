@@ -245,7 +245,11 @@ Example configuration:
   ]
 }
 
+
+```
+
 Fields:
+
 | Field | Description |
 |------|-------------|
 | name | unique server identifier |
@@ -256,9 +260,6 @@ Fields:
 | ssh_key_path | path to SSH key |
 | os | server operating system |
 name unique server identifier
-
-
-```
 
 ------------------------------------------------------------------------
 
