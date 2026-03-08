@@ -229,25 +229,36 @@ Servers are defined in JSON configuration files located in:
 
 Example configuration:
 
-{ "servers": \[ { "name": "web01", "ip_addr": "192.168.1.10",
-"ssh_port": 22, "user": "root", "ssh_connection_type": "ssh_key",
-"ssh_key_path": "\~/.ssh/id_rsa", "os": "linux" } \] }
+
+```json
+{
+  "servers": [
+    {
+      "name": "web01",
+      "ip_addr": "192.168.1.10",
+      "ssh_port": 22,
+      "user": "root",
+      "ssh_connection_type": "ssh_key",
+      "ssh_key_path": "~/.ssh/id_rsa",
+      "os": "linux"
+    }
+  ]
+}
 
 Fields:
-
+| Field | Description |
+|------|-------------|
+| name | unique server identifier |
+| ip_addr | server IP address |
+| ssh_port | SSH port (default 22) |
+| user | SSH user |
+| ssh_connection_type | authentication type |
+| ssh_key_path | path to SSH key |
+| os | server operating system |
 name unique server identifier
 
-ip_addr server IP address
 
-ssh_port SSH port (default 22)
-
-user SSH user
-
-ssh_connection_type authentication type
-
-ssh_key_path path to SSH key
-
-os server operating system
+```
 
 ------------------------------------------------------------------------
 
