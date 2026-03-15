@@ -2,7 +2,6 @@ from json_loader import JsonLoader
 
 import subprocess
 
-
 class Server:
     def __init__(self):
         self._server_data: JsonLoader = JsonLoader()
