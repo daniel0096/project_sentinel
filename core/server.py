@@ -1,6 +1,8 @@
 from json_loader import JsonLoader
-
 import subprocess
+
+from utils import log_files, create_missing_file, get_working_dir, LogLevel
+from core_log import CORE_TRACE_LOG
 
 class Server:
     def __init__(self):
@@ -44,7 +46,7 @@ class Server:
             target_servers = [s for s in data if s.get("name") in targets]
 
             if not target_servers:
-                print(f"No matching servers found for target: {target}")
+                CORE_TRACE_LOG(LogLevel.LOG_LEVEL_ERROR.value, f"No matching servers found for target: {target}")
                 return False
 
         match command:
@@ -57,11 +59,10 @@ class Server:
             case "hostname":
                 remote_cmd = "hostname"
             case _:
-                print(f"Unknown command: {command}")
+                CORE_TRACE_LOG(LogLevel.LOG_LEVEL_ERROR.value, f"Unknown command: {command}")
                 return False
 
         for server in target_servers:
-
             server_name = server.get("name")
             server_ip = server.get("ip_addr")
             server_port = server.get("ssh_port", 22)
@@ -83,20 +84,27 @@ class Server:
                     ssh_command.insert(1, "-i")
                     ssh_command.insert(2, key_path)
                 else:
-                    print(f"Missing ssh key for server {server_name}")
+                    CORE_TRACE_LOG(LogLevel.LOG_LEVEL_ERROR.value, f"Missing ssh key for server {server_name}")
                     continue
 
-            print(f"Running on {server_name}: {remote_cmd}")
+            CORE_TRACE_LOG(LogLevel.LOG_LEVEL_LOG.value, f"Running on {server_name}: {remote_cmd}")
 
-            try:
-                subprocess.run(ssh_command, check=True)
-                success = True
+            cmd_log_file = log_files.get('server_log')[0]
 
-            except subprocess.CalledProcessError as err:
-                print(f"Command failed on {server_name}: {err}")
+            if create_missing_file('logs', cmd_log_file):
+                fp = get_working_dir('logs') / cmd_log_file
 
-            except FileNotFoundError:
-                print("SSH command not found on system.")
-                return False
+                try:
+                    with open(fp, 'a', encoding="utf-8") as f:
+                        f.write(f"\n--- Output from {server_name} ---\n")
+                        subprocess.run(ssh_command, check=True, stdout=f, stderr=subprocess.STDOUT)
+                        success = True
+                except Exception as err:
+                    print(f"{err}")
 
+                except subprocess.CalledProcessError as err:
+                    CORE_TRACE_LOG(LogLevel.LOG_LEVEL_ERROR.value, f"{err}")
+                except FileNotFoundError:
+                    CORE_TRACE_LOG(LogLevel.LOG_LEVEL_ERROR.value, f"SSH command not found on system.")
+                    return False
         return success

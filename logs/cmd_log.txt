@@ -1,0 +1,14 @@
+Filesystem         Size    Used   Avail Capacity  Mounted on
+/dev/gpt/rootfs     72G     18G     47G    28%    /
+devfs              1.0K      0B    1.0K     0%    /dev
+/dev/gpt/efiesp     32M    890K     31M     3%    /boot/efi
+devfs              1.0K      0B    1.0K     0%    /usr/jails/i386_13_5/dev
+
+--- Output from game ---
+Filesystem         Size    Used   Avail Capacity  Mounted on
+/dev/gpt/rootfs     72G     18G     47G    28%    /
+devfs              1.0K      0B    1.0K     0%    /dev
+/dev/gpt/efiesp     32M    890K     31M     3%    /boot/efi
+devfs              1.0K      0B    1.0K     0%    /usr/jails/i386_13_5/dev
+
+--- Output from game ---
