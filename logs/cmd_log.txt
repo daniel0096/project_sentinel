@@ -1,14 +1,34 @@
 Filesystem         Size    Used   Avail Capacity  Mounted on
-/dev/gpt/rootfs     72G     18G     47G    28%    /
+/dev/gpt/rootfs     72G     19G     47G    28%    /
 devfs              1.0K      0B    1.0K     0%    /dev
 /dev/gpt/efiesp     32M    890K     31M     3%    /boot/efi
 devfs              1.0K      0B    1.0K     0%    /usr/jails/i386_13_5/dev
 
 --- Output from game ---
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           795M  1.1M  794M   1% /run
+/dev/sda1       145G   14G  131G  10% /
+tmpfs           3.9G  1.1M  3.9G   1% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+/dev/sda16      881M  117M  703M  15% /boot
+/dev/sda15      105M  6.2M   99M   6% /boot/efi
+tmpfs           795M   16K  795M   1% /run/user/1001
+
+--- Output from asterisk_sv ---
 Filesystem         Size    Used   Avail Capacity  Mounted on
-/dev/gpt/rootfs     72G     18G     47G    28%    /
+/dev/gpt/rootfs     72G     19G     47G    28%    /
 devfs              1.0K      0B    1.0K     0%    /dev
 /dev/gpt/efiesp     32M    890K     31M     3%    /boot/efi
 devfs              1.0K      0B    1.0K     0%    /usr/jails/i386_13_5/dev
 
 --- Output from game ---
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           795M  1.1M  794M   1% /run
+/dev/sda1       145G   14G  131G  10% /
+tmpfs           3.9G  1.1M  3.9G   1% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+/dev/sda16      881M  117M  703M  15% /boot
+/dev/sda15      105M  6.2M   99M   6% /boot/efi
+tmpfs           795M   16K  795M   1% /run/user/1001
+
+--- Output from asterisk_sv ---

@@ -1,8 +1,7 @@
 from json_loader import JsonLoader
-import subprocess
 
-from utils import log_files, create_missing_file, get_working_dir, LogLevel
-from core_log import CORE_TRACE_LOG
+from utils import log_files, LogLevel
+from core_log import CORE_TRACE_LOG, Log
 
 class Server:
     def __init__(self):
@@ -91,20 +90,11 @@ class Server:
 
             cmd_log_file = log_files.get('server_log')[0]
 
-            if create_missing_file('logs', cmd_log_file):
-                fp = get_working_dir('logs') / cmd_log_file
+            logger = Log()
 
-                try:
-                    with open(fp, 'a', encoding="utf-8") as f:
-                        f.write(f"\n--- Output from {server_name} ---\n")
-                        subprocess.run(ssh_command, check=True, stdout=f, stderr=subprocess.STDOUT)
-                        success = True
-                except Exception as err:
-                    print(f"{err}")
-
-                except subprocess.CalledProcessError as err:
-                    CORE_TRACE_LOG(LogLevel.LOG_LEVEL_ERROR.value, f"{err}")
-                except FileNotFoundError:
-                    CORE_TRACE_LOG(LogLevel.LOG_LEVEL_ERROR.value, f"SSH command not found on system.")
-                    return False
+            logger.run_process_to_log_file(
+                filename=cmd_log_file,
+                header=f"\n--- Output from {server_name} ---",
+                command=ssh_command
+            )
         return success
